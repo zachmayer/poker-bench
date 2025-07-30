@@ -36,4 +36,4 @@ clean:
 	rm -rf .coverage.xml
 .PHONY: clean
 
-all: install lint types test
+all: lint types test
