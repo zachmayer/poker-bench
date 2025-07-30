@@ -17,8 +17,23 @@ lint:
 	uv run pre-commit run -a
 .PHONY: lint
 
+types:
+	uv run pyright .
+.PHONY: types
+
 test:
 	uv run pytest
 .PHONY: test
 
-all: install lint test
+clean:
+	rm uv.lock
+	rm -rf .pytest_cache
+	rm -rf .ruff_cache
+	rm -rf .mypy_cache
+	rm -rf .ipynb_checkpoints
+	rm -rf .coverage
+	rm -rf .coverage.*
+	rm -rf .coverage.xml
+.PHONY: clean
+
+all: install lint types test
