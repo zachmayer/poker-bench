@@ -4,7 +4,7 @@ check-requirements:
 
 install: check-requirements
 	uv python install
-	uv sync --locked --all-groups
+	uv sync --all-groups
 	uv run pre-commit install
 .PHONY: install
 
@@ -36,4 +36,4 @@ clean:
 	rm -rf .coverage.xml
 .PHONY: clean
 
-all: lint types test
+all: install lint types test
