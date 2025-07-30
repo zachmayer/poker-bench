@@ -1,17 +1,17 @@
 [project]
-name = "python-boilerplate"
+name = "poker-bench"
 version = "0.1.0"
-description = "Add your description here"
+description = "LLMs playing poker"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
 
 [dependency-groups]
 dev = [
-    "ipython>=9.2.0",
+    "ipython>=9.4.0",
     "pre-commit>=4.2.0",
-    "pytest>=8.3.5",
-    "ruff>=0.11.12",
+    "pytest>=8.4.1",
+    "ruff>=0.12.7",
 ]
 
 [tool.ruff]
@@ -20,6 +20,9 @@ line-length = 100
 [tool.ruff.lint]
 extend-select = [
     "I", # isort
+    "B", # black
+    "E", # flake8-erros
+    "F", # flake8-builtins
 ]
 
 [tool.ruff.lint.isort]
