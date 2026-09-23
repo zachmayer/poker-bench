@@ -1,26 +1,53 @@
 [project]
-name = "python-boilerplate"
+name = "poker-bench"
 version = "0.1.0"
-description = "Add your description here"
+description = "LLMs playing poker"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "PokerBots>=2.0.6",
+    "pydantic>=2.11.7",
+    "pydantic-ai>=0.4.9",
+    "numpy>=1.26.0",
+    "torch>=2.3.0",
+    "transformers>=4.41.0",
+    "peft>=0.11.0",
+    "accelerate>=0.29.0",
+    "matplotlib>=3.7.0",
+]
 
 [dependency-groups]
 dev = [
-    "ipython>=9.2.0",
+    "ipython>=9.4.0",
     "pre-commit>=4.2.0",
-    "pytest>=8.3.5",
-    "ruff>=0.11.12",
+    "pyright>=1.1.403",
+    "pytest>=8.4.1",
+    "ruff>=0.12.7",
 ]
 
 [tool.ruff]
-line-length = 100
+line-length = 120
 
 [tool.ruff.lint]
 extend-select = [
     "I", # isort
+    "B", # black
+    "E", # flake8-erros
+    "F", # flake8-builtins
 ]
 
 [tool.ruff.lint.isort]
 force-single-line = true
+
+[tool.pyright]
+pythonVersion = "3.13"
+strict = ['.']
+include = ["src"]
+exclude = [
+    "**/__pycache__"
+]
+ignore = []
+defineConstant = { DEBUG = true }
+
+reportMissingImports = "error"
+reportMissingTypeStubs = false
