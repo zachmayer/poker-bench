@@ -1,0 +1,28 @@
+# Poker Training Configuration
+
+model:
+  hidden_dim: 256
+  num_layers: 3
+  dropout: 0.1
+
+training:
+  episodes: 2000
+  batch_size: 32
+  learning_rate: 0.0003
+  gamma: 0.99
+  gae_lambda: 0.95
+  clip_ratio: 0.2
+  value_coef: 0.5
+  entropy_coef: 0.01
+  max_grad_norm: 0.5
+
+poker:
+  initial_stack: 30000
+  num_opponents: 3
+  exploration_temp: 1.2
+
+evaluation:
+  eval_every: 50
+  eval_episodes: 100
+
+seed: 42

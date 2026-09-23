@@ -14,7 +14,8 @@ upgrade:
 .PHONY: upgrade
 
 lint:
-	uv run pre-commit run -a
+	uv run ruff format
+	uv run ruff check --fix --unsafe-fixes
 .PHONY: lint
 
 types:
@@ -24,6 +25,10 @@ types:
 test:
 	uv run pytest
 .PHONY: test
+
+run:
+	uv run src/main.py
+.PHONY: run
 
 clean:
 	rm uv.lock
@@ -36,4 +41,4 @@ clean:
 	rm -rf .coverage.xml
 .PHONY: clean
 
-all: install lint types test
+all: install lint types test run
