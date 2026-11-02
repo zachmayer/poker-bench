@@ -68,37 +68,12 @@ Bypass checks on your commit with the `-n` flag. So instead of
 
 github actions must always be located in `.github/workflows`
 
-This repo contains two actions
+This repo contains one action:
 
 - Lint And Test: Run linter and pytest on PRs and merge to main.
   Located in: `.github/workflows/ci.yaml`
-- Update Dependencies: Run a weekly update job and open PR on changes.
-  Located in: `.github/workflows/updater.yaml`
 
-#### Using the Update Dependencies Action
-
-**If you use this action remove `eric-s-s` as an assignee in `updater.yaml`!**
-
-This runs updates to all libraries on a weekly basis. If there are file
-changes, it automatically creates a PR and assigns me (eric-s-s) to the PR.
-If you want something like this you'll need to do some updating. Including
-from the next section with personal access token management.
-
-#### Personal Access Token Management for PR actions
-
-**Use the new fine-grained access tokens!** You have no good reason
-not to, and they are more secure.
-
-The `create-pull-request` github action explains the following for
-tokens and their requirements. I've also included the example I used.
-
-- https://github.com/peter-evans/create-pull-request?tab=readme-ov-file#token
-- https://github.com/peter-evans/create-pull-request/blob/main/docs/examples.md#update-npm-dependencies
-
-And GitHub explains about personal access tokens and repo secrets here:
-
-- https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token
-- https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions#creating-secrets-for-a-repository
+Dependabot (`.github/dependabot.yml`) opens weekly PRs for `uv` and GitHub Actions updates.
 
 ### Repo Settings
 
