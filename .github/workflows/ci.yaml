@@ -1,4 +1,8 @@
 name: Lint and Test
+
+# One check: zizmor finds no workflow security flaws, the uv lockfile still
+# installs, and the pre-commit hooks and pytest pass. Dependabot's PRs merge
+# once it passes.
 on:
   push:
     branches: [ "main" ]
@@ -13,7 +17,7 @@ jobs:
     name: run linting and testing
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
 
@@ -27,10 +31,11 @@ jobs:
         advanced-security: false
         annotations: true
 
+    # No uv version pin: setup-uv installs the latest uv, which reads any
+    # uv.lock revision a local uv writes.
     - name: Install uv
-      uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
+      uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
       with:
-        version: "0.7.9"
         enable-cache: true
         cache-dependency-glob: "uv.lock"
 
@@ -42,3 +47,23 @@ jobs:
 
     - name: Test
       run: make test
+
+  # Dependabot's PRs merge themselves. This job checks nothing out, so the PR's
+  # code never runs with this write token, and --match-head-commit refuses a
+  # head that moved after this run saw it.
+  merge-dependabot:
+    needs: [basic-ci]
+    # Only someone with write access can push to Dependabot's branch, and they
+    # can push to main anyway. Accepted: reopening a closed Dependabot PR, which
+    # Triage allows, gets it merged once the checks pass.
+    if: github.event_name == 'pull_request' && github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - run: gh pr merge --squash --match-head-commit "$PR_HEAD_SHA" "$PR_URL"
+      env:
+        PR_URL: ${{ github.event.pull_request.html_url }}
+        PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        GH_TOKEN: ${{ github.token }}

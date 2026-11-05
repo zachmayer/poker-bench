@@ -73,7 +73,9 @@ This repo contains one action:
 - Lint And Test: Run linter and pytest on PRs and merge to main.
   Located in: `.github/workflows/ci.yaml`
 
-Dependabot (`.github/dependabot.yml`) opens weekly PRs for `uv` and GitHub Actions updates.
+Dependabot (`.github/dependabot.yml`) opens one weekly PR each for `uv`, GitHub Actions,
+and pre-commit hook updates; the `merge-dependabot` job in `ci.yaml` squash-merges each
+once lint and tests pass.
 
 ### Repo Settings
 
