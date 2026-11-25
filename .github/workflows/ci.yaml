@@ -34,7 +34,7 @@ jobs:
     # No uv version pin: setup-uv installs the latest uv, which reads any
     # uv.lock revision a local uv writes.
     - name: Install uv
-      uses: astral-sh/setup-uv@v10.3.3
+      uses: astral-sh/setup-uv@v10.4.0
       with:
         enable-cache: true
         cache-dependency-glob: "uv.lock"
